@@ -1,0 +1,46 @@
+---
+title: "Untitled"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r}
+library(readr)
+```
+
+```{r}
+bg_chem <- read_csv("BGchem2008data.csv")
+```
+
+```{r}
+BGchem2008data <- read_csv("~/BGchem2008data.csv")
+View(BGchem2008data)
+```
+
+
+## Introduction
+
+* read in the data
+
+## Analysis
+
+* calculate summary stats
+
+```{r}
+mean_temp <- mean(bg_chem$(CTD_temperature)
+```
+
+```{r}
+plot(BGchem2008data(CTDDepth, bg_chem$CTDTemperature)
+```
+
+
+* make a plot
+
+
+

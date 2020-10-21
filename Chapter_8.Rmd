@@ -96,4 +96,10 @@ region_defs <- read_csv("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35
 catch_joined <- left_join(catch_long, region_defs, by = c("Region" = "code"))
 catch_joined
 ```
+## Plotting
+```{r}
+ggplot(annual_esc, aes(x = Species, y = escapement)) +
+  geom_col(fill = "blue")
+```
+
 

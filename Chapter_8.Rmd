@@ -1,0 +1,99 @@
+---
+title: "New_training_21oct"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r echo=FALSE, warning=FALSE}
+library(dplyr)
+library(tidyr)
+library(readr)
+```
+
+```{r}
+catch_original <-read_csv("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.302.1")
+```
+
+```{r}
+catch_data <- catch_original %>%
+  select(Region, Year, Chinook, Sockeye, Coho, Pink, Chum)
+```
+
+```{r}
+catch_data <- catch_original %>%
+  select(-All, -notesRegCode)
+```
+
+```{r}
+summary(catch_data)
+```
+
+```{r}
+catch_clean <- catch_data %>%
+  mutate(Chinook = as.numeric(Chinook))
+catch_clean
+```
+
+```{r}
+i <- which(is.na(catch_clean$Chinook))
+```
+to show the row which has NA:
+
+```{r}
+catch_original[i,]
+```
+
+```{r}
+catch_clean <-catch_data %>%
+  mutate(Chinook = ifelse(Chinook =="I", 1, Chinook)) %>%
+  mutate(Chinook = as.numeric(Chinook))
+catch_clean
+```
+```{r}
+catch_long <- catch_clean %>%
+  pivot_longer(cols = -c(Region, Year), names_to= "species", values_to = "catch")
+catch_long
+
+catch_wide <- catch_long %>%
+  pivot_wider(names_from = "species", values_from = "catch")
+catch_wide
+```
+
+```{r}
+catch_long <- catch_long %>%
+  rename(catch_thousands = catch)
+catch_long
+```
+
+```{r}
+catch_long <- catch_long %>%
+  mutate(catch = catch_thousands * 1000) %>%
+  select(-catch_thousands)
+catch_long
+```
+```{r}
+mean_by_region <- catch_long %>%
+  group_by(Region) %>%
+  summarise(catch_mean = mean(catch)) %>% 
+  arrange(desc(catch_mean))
+mean_by_region
+```
+
+```{r}
+SSE_catch <- catch_long %>%
+  filter(Region == "SSE")
+SSE_catch
+```
+```{r}
+region_defs <- read_csv("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.303.1") %>% 
+  select(code, mgmtArea)
+```
+
+```{r}
+catch_joined <- left_join(catch_long, region_defs, by = c("Region" = "code"))
+catch_joined
+```
+

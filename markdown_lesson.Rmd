@@ -7,24 +7,3 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Line added by Peter Ungar
-
-# Introduction
-
-This is a very "nice" introduction
-
-Line added by Francois
-
-# astounding introdcutio
-
-going in the textbooks!
-
-##4 Project Objectives
-
-
-
-1. select sites
-2. GO to sites
-3. take samples
-4. analyse samples
-

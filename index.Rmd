@@ -11,5 +11,5 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Take a look at my nice work!
 
-[Data Tidying] (Tidy_lesson.html)
+[Data Tidying](index.html)
 

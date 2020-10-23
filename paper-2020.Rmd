@@ -4,9 +4,8 @@ author:
 - Bryce Mecum, mecum@nceas.ucsb.edu
 - Francois Lapointe, flapointe@umass.edu
 output:
-  word_document: default
   html_document: default
-bibliography: references.bib
+  word_document: default
 ---
 
 ```{r setup, include=FALSE}

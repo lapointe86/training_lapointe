@@ -49,4 +49,86 @@ plot(ak_regions_3338)
 
 ```
 
+```{r}
+ak_regions_3338 %>% 
+  select(region)
+```
 
+```{r}
+pop <- read.csv("shape files/ShapeFiles/alaska_population.csv")
+```
+
+Spatial joint
+
+```{r}
+pop_4326 <- st_as_sf(pop, coords = c('lng', 'lat'), crs = 4326, remove =FALSE)
+head(pop_4326)
+```
+
+```{r}
+pop_3338 <- pop_4326 %>% 
+  st_transform(crs = 3338)
+```
+
+```{r}
+pop_3338 <- st_transform(pop_4326, crs = 3338)
+```
+
+# transform one coord to another same projection
+
+```{r}
+pop_3338 <- st_transform(pop_4326, crs = 3338)
+```
+
+```{r}
+pop_joined <- st_join(pop_3338, ak_regions_3338, join = st_within)
+
+head(pop_joined)
+```
+
+```{r}
+pop_region <- pop_joined %>% 
+  as.data.frame() %>% 
+  group_by(region) %>% 
+  summarise(total_pop = sum(population), .groups="drop")
+head(pop_region)
+  
+```
+
+```{r}
+pop_region_3338 <-left_join(ak_regions_3338, pop_region, by = "region")
+plot(pop_region_3338)
+```
+
+```{r}
+pop_mgmt_3338 <- pop_region_3338 %>% 
+  group_by(mgmt_area) %>% 
+  summarise(total_pop=sum(total_pop), do_union = FALSE)
+plot(pop_mgmt_3338)
+```
+
+ ## Maps
+ 
+ Mardown text explainin stuff
+ 
+```{r}
+ggplot(pop_region_3338) +
+  geom_sf(aes(fill = total_pop))
+```
+ 
+
+```{r}
+rivers_3338 <- read_sf("shape files/ShapeFiles/ak_rivers_simp.shp")
+```
+
+```{r}
+pop_3857 <- pop_3338 %>% 
+  st_transform(cr)
+```
+ 
+
+```{r}
+
+```
+ 
+ 

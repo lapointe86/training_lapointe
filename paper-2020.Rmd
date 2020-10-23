@@ -1,0 +1,60 @@
+---
+title: "REproducible papers with Rmarkdown"
+author:
+- Bryce Mecum, mecum@nceas.ucsb.edu
+- Francois Lapointe, flapointe@umass.edu
+output:
+  word_document: default
+  html_document: default
+bibliography: references.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning=FALSE)
+
+library(ggplot2)
+library(knitr)
+library(broom)
+library(captioner)
+```
+
+```{r dataloading, results='hide'}
+data(diamonds)
+head(diamonds)
+
+```
+
+
+#Abstract
+
+This is the first result of the satellite
+
+# Intro
+
+# Methods
+
+Very simple methods for any dump ppl
+ax+b = y 
+
+# Results
+
+```{r}
+ggplot(diamonds, mapping=aes(carat, price, color=clarity)) +
+  geom_point() +
+  labs(x = "Carat", y = "Price")
+```
+lm,
+
+```{r}
+mod <-lm(price ~carat,diamonds)
+kable(tidy(mod), digits =2)
+```
+
+We found that hte slope was 'r round(mod$coefficients["carats"][[1]]'
+
+/[/sum_{i=1}^{N}{2}log(i)]
+
+# Discussion
+
+#Refenreces
+

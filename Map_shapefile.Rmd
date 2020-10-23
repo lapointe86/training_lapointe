@@ -1,0 +1,52 @@
+---
+title: "MAP_sf"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(sf)
+library(dplyr)
+library(ggplot2)
+library(leaflet)
+library(scales)
+library(ggmap)
+```
+
+```{r}
+## Read in shapefile using sf
+ak_regions <- read_sf("../data/shapefiles/ak_regions_simp.shp")
+
+plot(ak_regions)  
+```
+
+```{r}
+plot(ak_regions)
+```
+
+```{r}
+class(ak_regions)
+```
+
+```{r}
+head(ak_regions) #CRS coordinate referecnce system
+```
+
+```{r}
+st_crs(ak_regions)
+```
+
+```{r}
+ak_regions_3338 <- ak_regions %>% 
+  st_transform(crs = 3338)
+```
+
+```{r}
+plot(ak_regions_3338)
+
+```
+
+
